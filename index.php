@@ -20,6 +20,9 @@
 
     foreach($users as $user) {
       if ($username === $user['username'] && $password === $user['pass']) {
+        // Create session
+        session_start();
+        $_SESSION['username'] = $username;
         // Redirect
         header('Location: ./welcome.php');
       } else {

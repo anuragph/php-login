@@ -9,6 +9,9 @@
     $sql = "INSERT INTO users(username,pass) VALUES ('$username', '$password')";
 
     if(mysqli_query($conn, $sql)) {
+      // Create session
+      session_start();
+      $_SESSION['username'] = $username;
       // Redirect
       header('Location: ./welcome.php');
     } else {
