@@ -1,4 +1,5 @@
 <?php
+
   $message = '';
 
   include('./config/db_connect.php');
@@ -19,13 +20,16 @@
     $password = $_POST['password'];
 
     foreach($users as $user) {
+      // Check credentials
       if ($username === $user['username'] && $password === $user['pass']) {
         // Create session
         session_start();
         $_SESSION['username'] = $username;
+        $_SESSION['id'] = $user['id']; // To be used to delete data
         // Redirect
         header('Location: ./welcome.php');
       } else {
+        // Failure to login
         $message = 'Oops! Looks like you could not log in. Try again or ';
       }
     }

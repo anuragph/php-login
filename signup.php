@@ -7,11 +7,13 @@
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     $sql = "INSERT INTO users(username,pass) VALUES ('$username', '$password')";
-
+    
+    // Add use and check
     if(mysqli_query($conn, $sql)) {
       // Create session
       session_start();
       $_SESSION['username'] = $username;
+      $_SESSION['id'] = mysqli_insert_id($conn); // To be used to delete data
       // Redirect
       header('Location: ./welcome.php');
     } else {
