@@ -31,7 +31,7 @@
   <h3>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h3>
   
   <!-- Logout -->
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET">
     <input type="submit" name="submit" value="Log out">
   </form>
   </br>

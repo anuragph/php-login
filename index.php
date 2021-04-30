@@ -42,7 +42,7 @@
 <html lang="en">
 <?php include('./templates/header.php'); ?>
 
-  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <label for="username">Username:</label>
     <input type="text" name="username" required>
     <label for="password">Password:</label>
