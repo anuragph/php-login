@@ -14,7 +14,7 @@
   mysqli_free_result($result);
   mysqli_close($conn);
   
-
+  // Log in
   if(isset($_POST['submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];

@@ -2,12 +2,14 @@
 
   session_start();
   
-  if(isset($_GET['submit'])) {
+  // Log out
+  if(isset($_GET['log_out'])) {
     session_unset();
     header('Location: ./index.php');
   }
-
-  if(isset($_POST['submit'])) {
+  
+  // Delete account
+  if(isset($_POST['delete'])) {
     include('./config/db_connect.php');
 
     $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
@@ -32,13 +34,13 @@
   
   <!-- Logout -->
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET">
-    <input type="submit" name="submit" value="Log out">
+    <input type="submit" name="log_out" value="Log out">
   </form>
   </br>
   <!-- Delete user -->
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
     <input type="hidden" name="id_to_delete" value="<?php echo $_SESSION['id']; ?>">
-    <input type="submit" name="submit" value="Delete Account">
+    <input type="submit" name="delete" value="Delete Account">
   </form>
 </body>
 </html>
