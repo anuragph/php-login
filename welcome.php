@@ -12,7 +12,7 @@
   if(isset($_POST['delete'])) {
     include('./config/db_connect.php');
 
-    $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
+    $id_to_delete = $_SESSION['id'];
     $sql = "DELETE FROM users WHERE id=$id_to_delete";
     
     // Delete data and check
@@ -39,7 +39,6 @@
   </br>
   <!-- Delete user -->
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-    <input type="hidden" name="id_to_delete" value="<?php echo $_SESSION['id']; ?>">
     <input type="submit" name="delete" value="Delete Account">
   </form>
 </body>
