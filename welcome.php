@@ -18,6 +18,7 @@
     // Delete data and check
     if(mysqli_query($conn, $sql)) {
       session_unset();
+      mysqli_close($conn); // Close connection before redirect
       header('Location: ./index.php');
     } else {
       echo "Error: " . mysqli_error($conn);

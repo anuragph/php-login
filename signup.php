@@ -14,6 +14,7 @@
       session_start();
       $_SESSION['username'] = $username;
       $_SESSION['id'] = mysqli_insert_id($conn); // To be used to delete data
+      mysqli_close($conn);
       // Redirect
       header('Location: ./welcome.php');
     } else {
