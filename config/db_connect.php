@@ -1,5 +1,10 @@
 <?php
-  $conn = mysqli_connect('localhost', /* user */, /* password */, 'login_app');
+  $server = '';
+  $username = '';
+  $password = '';
+  $database = '';
+
+  $conn = mysqli_connect($server, $username, $password , $database);
   
   // Check connection
   if(!$conn) {
