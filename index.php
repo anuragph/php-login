@@ -30,7 +30,7 @@
         header('Location: ./welcome.php');
       } else {
         // Failure to login
-        $message = 'Oops! Looks like you could not log in. Try again or ';
+        $message = 'Oops! Try again or ';
       }
     }
   }
@@ -41,15 +41,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include('./templates/header.php'); ?>
-
-  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" required>
-    <label for="password">Password:</label>
-    <input type="text" name="password" required>
-    <input type="submit" name="submit" value="Log In">
-  </form>
-  <p><?php echo $message ?><a href="./signup.php">Sign up!</a></p>
+  
+  <div class="container mt-5">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+      <div class="form-group">
+        <label for="username" class="text-muted">Username:</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="text-muted">Password:</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-between">
+        <input type="submit" name="submit" value="Log In" class="btn btn-success">
+        <p class="text-secondary"><?php echo $message ?><a href="./signup.php">Sign up!</a></p>
+      </div>
+    </form>
+    
+  </div>
   
 </body>
 </html>

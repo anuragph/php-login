@@ -27,14 +27,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include('./templates/header.php'); ?>
-
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-  <label for="username">Username:</label>
-  <input type="text" name="username">
-  <label for="password">Password:</label>
-  <input type="text" name="password">
-  <input type="submit" name="submit" value="Sign up">
-</form>
+  <div class="container mt-5">
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+      <div class="form-group">
+        <label for="username" class="text-muted">Username:</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password" class="text-muted">Password:</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <input type="submit" name="submit" value="Sign up" class="btn btn-primary">
+      </div>
+    </form>
+  </div>
   
 </body>
 </html>
