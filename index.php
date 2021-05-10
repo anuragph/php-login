@@ -1,7 +1,8 @@
 <?php
 
   $message = '';
-
+  
+  require('./user_validation.php');
   include('./config/db_connect.php');
 
   // Make query
@@ -16,21 +17,29 @@
   
   // Log in
   if(isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
 
-    foreach($users as $user) {
-      // Check credentials
-      if ($username === $user['username'] && $password === $user['pass']) {
-        // Create session
-        session_start();
-        $_SESSION['username'] = $username;
-        $_SESSION['id'] = $user['id']; // To be used to delete data
-        // Redirect
-        header('Location: ./welcome.php');
-      } else {
-        // Failure to login
-        $message = 'Oops! Try again or ';
+    // Validate
+    $validation = new LogInValidation($_POST);
+    $errors = $validation->validate();
+
+    if(count($errors) === 0) {
+    
+      $username = $_POST['username'];
+      $password = $_POST['password'];
+  
+      foreach($users as $user) {
+        // Check credentials
+        if ($username === $user['username'] && $password === $user['pass']) {
+          // Create session
+          session_start();
+          $_SESSION['username'] = $username;
+          $_SESSION['id'] = $user['id']; // To be used to delete data
+          // Redirect
+          header('Location: ./welcome.php');
+        } else {
+          // Failure to login
+          $message = 'Oops! Try again or ';
+        }
       }
     }
   }
@@ -46,11 +55,13 @@
     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
       <div class="form-group">
         <label for="username" class="text-muted">Username:</label>
-        <input type="text" name="username" class="form-control" required>
+        <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars($_POST['username'] ?? ""); ?>">
+        <span class="text-danger"><?php echo $errors['username'] ?? ""; ?></span>
       </div>
       <div class="form-group">
         <label for="password" class="text-muted">Password:</label>
-        <input type="password" name="password" class="form-control" required>
+        <input type="password" name="password" class="form-control">
+        <span class="text-danger"><?php echo $errors['password'] ?? ""; ?></span>
       </div>
       <div class="d-flex justify-content-between">
         <input type="submit" name="submit" value="Log In" class="btn btn-success">

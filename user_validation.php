@@ -1,14 +1,12 @@
 <?php
 
-class SignUpValidation {
-
-    private $form_data;
-    private $existing_users;
-    public $errors = [];
-  
-    public function __construct($form_data, $existing_users) {
+class LogInValidation {
+    
+    protected $form_data;
+    protected $errors = [];
+    
+    public function __construct($form_data) {
         $this->form_data = $form_data;
-        $this->existing_users = $existing_users;
     }
 
     public function validate() {
@@ -17,10 +15,45 @@ class SignUpValidation {
         
         return $this->errors;
     }
-
+    
     // Check if username is empty
-    // Check if username already exists
-    private function validateUsername() {
+    protected function validateUsername() {
+
+        $username = trim($this->form_data['username']);
+
+        if(empty($username)) {
+            $this->addError('username', 'Username cannot be empty');
+        }
+    }
+
+    // Check if password is empty
+    protected function validatePassword() {
+
+        $password = trim($this->form_data['password']);
+
+        if(empty($password)) {
+            $this->addError('password', 'Password cannot be empty');
+        }
+    }
+
+    protected function addError($key, $val) {
+        $this->errors[$key] = $val; 
+    }    
+}
+
+class SignUpValidation extends LogInValidation {
+
+    protected $existing_users;
+  
+    public function __construct($form_data, $existing_users) {
+        parent::__construct($form_data);
+        $this->existing_users = $existing_users;
+    }
+    
+    // Override parent method.
+    // -- Check if username is empty.
+    // -- Check if username already exists.
+    protected function validateUsername() {
 
         $username = trim($this->form_data['username']);
 
@@ -32,19 +65,6 @@ class SignUpValidation {
             }
         }
     }
-
-    // Check if password is empty
-    private function validatePassword() {
-
-        $password = trim($this->form_data['password']);
-
-        if(empty($password)) {
-            $this->addError('password', 'Password cannot be empty');
-        }
-    }
-    
-    private function addError($key, $val) {
-        $this->errors[$key] = $val; 
-    }
 }
+
 ?>
