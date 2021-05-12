@@ -2,6 +2,11 @@
 
   session_start();
   
+  // Block user access after log out or delete
+  if(!$_SESSION['username']) {
+    header('Location: ./index.php');
+  }
+  
   // Log out
   if(isset($_GET['log_out'])) {
     session_unset();
